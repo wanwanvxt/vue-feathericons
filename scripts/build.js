@@ -59,16 +59,19 @@ async function writeFile(filePath, data) {
  * Generates export statements for the icons.
  * @param {Array<{ name: string, contents: string, attrs: object[] }>} icons - The icon data.
  * @param {string} format - The module format.
+ * @param {boolean} includeExt - Whether to include file extension.
  * @returns {string} The generated export statements.
  */
-function genExportStmts(icons, format = 'esm') {
+function genExportStmts(icons, format = 'esm', includeExt = true) {
   return icons
     .map(({ name }) => {
+      let ext = includeExt ? '.js' : '';
+
       if (format === 'esm') {
-        return `export { default as ${name} } from './${name}.js';`;
+        return `export { default as ${name} } from './${name}${ext}';`;
       }
 
-      return `module.exports.${name} = require('./${name}.js');`;
+      return `module.exports.${name} = require('./${name}${ext}');`;
     })
     .join('\n');
 }
@@ -88,11 +91,24 @@ async function buildIcons(format = 'esm') {
     icons.map(async (icon) => {
       let data = await genComp(icon, format);
 
-      return [writeFile(`${buildDir}/${icon.name}.js`, data)];
+      /** @type {string[]} */
+      let types = [];
+
+      types.push(`import type { VNode, RendererNode, RendererElement } from 'vue';`);
+      types.push(
+        `declare const ${icon.name}: { setup(): () => VNode<RendererNode, RendererElement, Record<string, any>>; }`
+      );
+      types.push(`export default ${icon.name};`);
+
+      return [
+        writeFile(`${buildDir}/${icon.name}.js`, data),
+        ...(types ? [writeFile(`${buildDir}/${icon.name}.d.ts`, types.join('\n'))] : [])
+      ];
     })
   );
 
   await writeFile(`${buildDir}/index.js`, genExportStmts(icons, format));
+  await writeFile(`${buildDir}/index.d.ts`, genExportStmts(icons, 'esm', false));
 }
 
 async function main() {
