@@ -5,6 +5,18 @@ __metadata:
   version: 8
   cacheKey: 10
 
+"@wanwanvxt/vue-feathericons@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@wanwanvxt/vue-feathericons@workspace:."
+  dependencies:
+    camelcase: "npm:^8.0.0"
+    feather-icons: "npm:^4.29.2"
+    prettier: "npm:^3.2.5"
+  peerDependencies:
+    vue: ">= 3"
+  languageName: unknown
+  linkType: soft
+
 "camelcase@npm:^8.0.0":
   version: 8.0.0
   resolution: "camelcase@npm:8.0.0"
@@ -44,15 +56,3 @@ __metadata:
   checksum: 10/d509f9da0b70e8cacc561a1911c0d99ec75117faed27b95cc8534cb2349667dee6351b0ca83fa9d5703f14127faa52b798de40f5705f02d843da133fc3aa416a
   languageName: node
   linkType: hard
-
-"vue-feathericons@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "vue-feathericons@workspace:."
-  dependencies:
-    camelcase: "npm:^8.0.0"
-    feather-icons: "npm:^4.29.2"
-    prettier: "npm:^3.2.5"
-  peerDependencies:
-    vue: ">= 3"
-  languageName: unknown
-  linkType: soft

@@ -8,10 +8,10 @@ Vue Feather Icons offers a rich set of Feather icon components for Vue.js. Visit
 
 ```sh
 # npm
-npm install vue-feathericons
+npm install @wanwanvxt/vue-feathericons
 
 # yarn
-yarn add vue-feathericons
+yarn add @wanwanvxt/vue-feathericons
 ```
 
 2. Import individually the icon as a Vue component:
