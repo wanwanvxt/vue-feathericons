@@ -18,7 +18,7 @@ yarn add @wanwanvxt/vue-feathericons
 
 ```vue
 <script setup>
-import { GithubIcon } from 'vue-feathericons';
+import { GithubIcon } from '@wanwanvxt/vue-feathericons';
 </script>
 
 <template>
